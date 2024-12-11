@@ -1,38 +1,78 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-container {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  background-color: #181818; /* Темно-серый фон */
+  color: #fff; /* Белый текст */
+  font-family: 'Roboto', sans-serif; /* Шрифт Roboto */
+}
+
+nav {
+  background-color: #282c34; /* Темно-синий цвет для навигации */
+  padding: 1rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+  justify-content: center; /* Выравнивание элементов по центру */
+}
+
+li {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.active {
+  font-weight: bold;
+  text-decoration: underline;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+a {
+  color: #fff; /* Белый текст */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #007bff; /* Синий цвет при наведении */
+}
+
+main {
+  flex: 1;
+  padding: 2rem;
+}
+
+/*  Дополнительные  стили  для  компонентов:  StudentList,  AddStudent,  StudentDetails  */
+
+/*  Адаптивные  стили  для  разных  размеров  экранов:  */
+
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
   }
-  to {
-    transform: rotate(360deg);
+
+  nav li {
+    margin: 0.5rem 0;
   }
+}
+
+/*  Стили  для  журнала  */
+
+.journal-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.journal-table th, 
+.journal-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.journal-table th {
+  background-color: #f2f2f2;
 }
