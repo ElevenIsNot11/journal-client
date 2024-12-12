@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import cloneDeep from 'lodash/cloneDeep';
 
 const StudentDetails = () => {
   const { id } = useParams();
@@ -15,6 +16,7 @@ const StudentDetails = () => {
     const fetchStudent = async () => {
       try {
         const response = await axios.get(`/students/${id}`);
+        console.log(response.data);
         setStudent(response.data);
         setGrades(response.data.grades || []);
       } catch (error) {
@@ -33,29 +35,36 @@ const StudentDetails = () => {
     setGrades(updatedGrades);
   };
 
-  console.log(student);
-  const handleAddGrade = async (e) => { // Added e parameter
-    e.preventDefault(); // Prevent default form submission behavior
+  const handleAddGrade = async (e) => {
+    e.preventDefault(); 
     if (newGrade === '' || newSubject === '') return;
 
     try {
       console.log(newGrade, newSubject);
-      const newGradeObj = { grade: parseInt(newGrade, 10), subject: newSubject }; 
+      const newGradeObj = { value: parseInt(newGrade, 10), subject: newSubject }; 
       const updatedStudent = { ...student, grades: [...student.grades, newGradeObj] }; 
+      console.log("updated student", updatedStudent);
       const response = await axios.patch(`/student/${student.id}`, updatedStudent);
       setGrades([...grades, response.data]);
       setNewGrade('');
       setNewSubject('');
+      window.location.reload()
     } catch (error) {
       console.error("Ошибка добавления оценки:", error);
       setError("Ошибка добавления оценки.");
     }
   };
 
+  console.log("grades", grades);
+
   const handleDeleteGrade = async (gradeId) => {
     try {
-      await axios.delete(`/user/delete/${id}/${gradeId}`);
-      setGrades(grades.filter((grade) => grade._id !== gradeId));
+      console.log("student   ",student);
+      console.log(gradeId);
+      student.grades = student.grades.filter((grade) => grade.id !== gradeId);
+      const response = await axios.patch(`/student/${student.id}`, student);
+      setStudent(response.data); // Update the student state
+      setGrades(response.data.grades); // Update the grades array in your state
     } catch (error) {
       console.error("Ошибка удаления оценки:", error);
       setError("Ошибка удаления оценки.");
@@ -86,11 +95,11 @@ const StudentDetails = () => {
         </thead>
         <tbody>
           {grades.map((grade, index) => (
-            <tr key={grade._id}>
+            <tr key={grade.id}>
               <td>{index + 1}</td>
-              <td>{grade.grade}</td>
+              <td>{grade.value}</td>
               <td>{grade.subject}</td>
-              <td><button onClick={() => handleDeleteGrade(grade._id)}>X</button></td>
+              <td><button onClick={() => handleDeleteGrade(grade.id)}>X</button></td>
             </tr>
           ))}
         </tbody>

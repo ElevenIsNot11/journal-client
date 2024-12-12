@@ -37,17 +37,17 @@ const Journal = () => {
   };
 
   if (loading) {
-    return <div>Загрузка...</div>; // Show loading indicator
+    return <div>Загрузка...</div>; 
   }
 
   if (error) {
-    return <div>Ошибка: {error}</div>; // Show error message
+    return <div>Ошибка: {error}</div>;
   }
 
   console.log(students);
 
   return (
-    <div>
+    <div className="journal-container">
       <h1>Журнал</h1>
       <table className="journal-table">
         <thead>
@@ -59,15 +59,15 @@ const Journal = () => {
         </thead>
         <tbody>
           {students.map((student) => (
-            <tr key={student._id}>
+            <tr key={student._id} className="journal-row">
               <td>{student.name}</td>
-              <td>{getGroupForStudent(student.id)?.name || 'Без группы'}</td>
+              <td>{getGroupForStudent(student._id)?.name || 'Без группы'}</td>
               <td>
-                {student.grades?.map((grade) => ( //Optional chaining here
-                  <div key={grade._id}>
-                    {grade.subject}: {grade.grade} {/* Access grade.grade */}
+                {student.grades?.map((grade) => (
+                  <div key={grade.id} className="grade-item">
+                    [{grade.date}] {grade.subject}: {grade.value}
                   </div>
-                )) || 'Оценок нет'} {/* Handle case where student.grades is null or undefined */}
+                )) || 'Оценок нет'}
               </td>
             </tr>
           ))}

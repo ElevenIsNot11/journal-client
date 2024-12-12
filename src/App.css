@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #181818; /* Темно-серый фон */
-  color: #fff; /* Белый текст */
-  font-family: 'Roboto', sans-serif; /* Шрифт Roboto */
+  background-color: #181818; /* Dark gray background */
+  color: #fff; /* White text */
+  font-family: 'Roboto', sans-serif; /* Roboto font */
 }
 
 nav {
-  background-color: #282c34; /* Темно-синий цвет для навигации */
+  background-color: #282c34; /* Darker gray for navigation */
   padding: 1rem;
 }
 
@@ -17,7 +17,7 @@ ul {
   padding: 0;
   display: flex;
   gap: 1rem;
-  justify-content: center; /* Выравнивание элементов по центру */
+  justify-content: center;
 }
 
 li {
@@ -31,13 +31,13 @@ li {
 }
 
 a {
-  color: #fff; /* Белый текст */
+  color: #fff; /* White text */
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #007bff; /* Синий цвет при наведении */
+  color: #007bff; /* Blue on hover */
 }
 
 main {
@@ -45,34 +45,109 @@ main {
   padding: 2rem;
 }
 
-/*  Дополнительные  стили  для  компонентов:  StudentList,  AddStudent,  StudentDetails  */
 
-/*  Адаптивные  стили  для  разных  размеров  экранов:  */
+/* Journal styles - now consistent with dark theme */
+.journal-container {
+  background-color: #282c34; /* Darker gray background */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  color: #fff; /* White text */
+}
 
+.journal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #333; /* Dark gray table background */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.journal-table th,
+.journal-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #555; /* Darker gray border */
+  color: #eee; /* Light gray text */
+}
+
+.journal-table th {
+  background-color: #444; /* Slightly darker gray header */
+  color: #fff; /* White header text */
+  font-weight: bold;
+}
+
+.journal-row:hover {
+  background-color: #444; /* Darker gray hover */
+  transform: translateY(-2px);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.grade-item {
+  margin-bottom: 5px;
+}
+
+/* Responsive styles */
 @media (max-width: 768px) {
   nav ul {
     flex-direction: column;
   }
-
   nav li {
     margin: 0.5rem 0;
   }
 }
 
-/*  Стили  для  журнала  */
+.student-list-container {
+  background-color: #282c34; /* Darker gray background */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  color: #fff; /* White text */
+}
 
-.journal-table {
-  border-collapse: collapse;
+.student-list-table {
   width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #333; /* Dark gray table background */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.journal-table th, 
-.journal-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+.student-list-table th,
+.student-list-table td {
+  padding: 10px;
   text-align: left;
+  border-bottom: 1px solid #555; /* Darker gray border */
+  color: #eee; /* Light gray text */
 }
 
-.journal-table th {
-  background-color: #f2f2f2;
+.student-list-table th {
+  background-color: #444; /* Slightly darker gray header */
+  color: #fff; /* White header text */
+  font-weight: bold;
+}
+
+.student-list-table a {
+  color: #fff; /* White link text */
+  text-decoration: none;
+}
+
+.student-list-table a:hover {
+  color: #007bff; /* Blue on hover */
+}
+
+.student-list-table tr:hover {
+  background-color: #444; /* Darker gray hover */
+}
+
+.add-student-link {
+  display: block;
+  margin-top: 20px;
+  text-align: center;
+  color: #fff; /* White text */
+  text-decoration: none;
+}
+
+.add-student-link:hover {
+  color: #007bff; /* Blue on hover */
 }
