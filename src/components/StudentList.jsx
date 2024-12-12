@@ -8,18 +8,8 @@ const StudentList = () => {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/'); // Перенаправление на страницу входа, если токен отсутствует
-      return;
-    }
-    
     const fetchStudents = async () => {
-      const response = await axios.get('/api/students', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      const response = await axios.get('/student/');
       setStudents(response.data);
     };
 
@@ -31,8 +21,8 @@ const StudentList = () => {
       <h1>Список студентов</h1>
       <ul>
         {students.map((student) => (
-          <li key={student._id}>
-            <Link to={`/students/${student._id}`}>
+          <li key={student.id}>
+            <Link to={`http://localhost:3000/student/${student.id}`}>
               {student.name}
             </Link>
             {/* <button>Редактировать</button>
@@ -40,7 +30,7 @@ const StudentList = () => {
           </li>
         ))}
       </ul>
-      <Link to="/add">Добавить студента</Link>
+      <Link to="http://localhost:3000/students/add">Добавить студента</Link>
     </div>
   );
 };

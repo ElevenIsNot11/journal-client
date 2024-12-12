@@ -5,19 +5,20 @@ import { useNavigate } from 'react-router-dom';
 const AddStudent = () => {
   const navigate = useNavigate();
   const [name, setName] = useState('');
-  const [groupId, setGroupId] = useState(null); 
+  const [groupId, setGroupId] = useState(''); // Changed to empty string
   const [groups, setGroups] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const response = await axios.get('/api/groups');
-        console.log(response);
+        const response = await axios.get('/group/');
         setGroups(response.data);
       } catch (error) {
-        console.error('Ошибка получения групп:', error);
         setErrorMessage('Ошибка получения групп');
+      } finally {
+        setLoading(false); // Set loading to false after fetch completes (success or failure)
       }
     };
 
@@ -26,19 +27,24 @@ const AddStudent = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!groupId) {
+        setErrorMessage('Выберите группу');
+        return;
+    }
+
     try {
-      const response = await axios.post('/api/students', { name, group: groupId });
+      const response = await axios.post('/student/new', { name, groupId });
       console.log('Студент добавлен:', response.data);
-      navigate('/students');
+      window.location.reload()
     } catch (error) {
-      console.error('Ошибка добавления студента:', error);
-      setErrorMessage(error.response.data.error || 'Ошибка добавления студента');
+      setErrorMessage(error.response?.data?.error || 'Ошибка добавления студента'); // Safer error handling
     }
   };
 
   return (
     <div>
       <h1>Добавить студента</h1>
+      {loading && <div>Загрузка групп...</div>} {/* Display loading message */}
       {errorMessage && <div className="error">{errorMessage}</div>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Имя:</label>
@@ -47,10 +53,16 @@ const AddStudent = () => {
           id="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          required
         />
         <label htmlFor="groupId">Группа:</label>
-        <select id="groupId" value={groupId} onChange={(e) => setGroupId(e.target.value)}>
-          <option value={null}>Выберите группу</option>
+        <select 
+          id="groupId" 
+          value={groupId} 
+          onChange={(e) => setGroupId(e.target.value)}
+          required
+        >
+          <option value="">Выберите группу</option> {/* Empty string as default value */}
           {groups.map((group) => (
             <option key={group._id} value={group._id}>
               {group.name}

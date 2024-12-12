@@ -8,7 +8,7 @@ const GroupList = () => {
 
   useEffect(() => {
     const fetchGroups = async () => {
-      const response = await axios.get('/api/groups');
+      const response = await axios.get('/group/');
       setGroups(response.data);
     };
 
@@ -17,7 +17,7 @@ const GroupList = () => {
 
   const handleDeleteGroup = async (groupId) => {
     try {
-      await axios.delete(`/api/groups/${groupId}`);
+      await axios.delete(`/group/${groupId}`);
       setGroups(groups.filter((group) => group._id !== groupId));
     } catch (error) {
       console.error('Ошибка удаления группы:', error);
@@ -30,12 +30,12 @@ const GroupList = () => {
       <ul>
         {groups.map((group) => (
           <li key={group._id}>
-            <Link to={`/groups/${group._id}`}>{group.name}</Link>
+            <Link to={`http://localhost:3000/group/${group._id}`}>{group.name}</Link>
             {/* <button onClick={() => handleDeleteGroup(group._id)}>Удалить</button> */}
           </li>
         ))}
       </ul>
-      <Link to="/groups/add">Добавить группу</Link>
+      <Link to="http://localhost:3000/groups/add">Добавить группу</Link>
     </div>
   );
 };

@@ -8,7 +8,7 @@ const AssessmentList = () => {
 
   useEffect(() => {
     const fetchAssessments = async () => {
-      const response = await axios.get('/api/assessments');
+      const response = await axios.get('http://localhost:8080/assessments');
       setAssessments(response.data);
     };
 
@@ -17,7 +17,7 @@ const AssessmentList = () => {
 
   const handleDeleteAssessment = async (assessmentId) => {
     try {
-      await axios.delete(`/api/assessments/${assessmentId}`);
+      await axios.delete(`http://localhost:8080/assessments/${assessmentId}`);
       setAssessments(assessments.filter((assessment) => assessment._id !== assessmentId));
     } catch (error) {
       console.error('Ошибка удаления оценки:', error);
@@ -30,14 +30,14 @@ const AssessmentList = () => {
       <ul>
         {assessments.map((assessment) => (
           <li key={assessment._id}>
-            <Link to={`/assessments/${assessment._id}`}>
+            <Link to={`http://localhost:8080/assessments/${assessment._id}`}>
               Студент: {assessment.student.name}, Предмет: {assessment.subject}, Оценка: {assessment.grade}, Дата: {new Date(assessment.date).toLocaleDateString()}
             </Link>
             <button onClick={() => handleDeleteAssessment(assessment._id)}>Удалить</button>
           </li>
         ))}
       </ul>
-      <Link to="/assessments/add">Добавить оценку</Link>
+      <Link to="http://localhost:8080/assessments/add">Добавить оценку</Link>
     </div>
   );
 };

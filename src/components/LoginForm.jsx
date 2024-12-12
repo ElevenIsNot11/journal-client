@@ -1,40 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const LoginForm = () => {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState('');
+  const navigate = useNavigate(); // Use useNavigate
+  const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedToken = jwtDecode(token); 
-      const isTokenExpired = decodedToken.exp * 1000 < Date.now();
-      if (isTokenExpired) {
-        localStorage.removeItem('token');
-        navigate('/');
-      }
-    }
-  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('/api/users/login', { username, password });
-      localStorage.setItem('token', response.data.token);
-      navigate('/students'); // Перенаправление на страницу студентов
+      const response = await axios.post('/login', { login, password });
+      console.log('Успешная авторизация:', response.data);
+      // Сохранить токен в localStorage (или другое хранилище)
+      localStorage.setItem('token', response.data.token); // Adjust as needed for your token structure
+
+      // Перенаправить пользователя на главную страницу или другую защищенную страницу
+      navigate('http://localhost:3000/journal'); // Use navigate to change the route
     } catch (error) {
-      setErrorMessage(error.response.data.error);
+      setErrorMessage(error.response?.data?.error || 'Ошибка авторизации'); // Safer error handling
     }
   };
 
   return (
     <div>
-      {/* ... остальной код ... */}
+      <h1>Авторизация</h1>
+      {errorMessage && <div className="error">{errorMessage}</div>}
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="username">Имя пользователя:</label>
+        <input
+          type="text"
+          id="username"
+          value={login}
+          onChange={(e) => setLogin(e.target.value)}
+        />
+        <label htmlFor="password">Пароль:</label>
+        <input
+          type="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">Войти</button>
+      </form>
     </div>
   );
 };

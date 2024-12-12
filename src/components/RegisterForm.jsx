@@ -2,17 +2,16 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const RegisterForm = () => {
-  const [username, setUsername] = useState('');
+  const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('/api/users/register', { username, password });
+      const response = await axios.post('/registration', { login, password });
       console.log('Пользователь зарегистрирован:', response.data);
-      // Перенаправить пользователя на страницу входа
-      window.location.href = '/login';
+      window.location.reload()
     } catch (error) {
       setErrorMessage(error.response.data.error);
     }
@@ -27,8 +26,8 @@ const RegisterForm = () => {
         <input
           type="text"
           id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={login}
+          onChange={(e) => setLogin(e.target.value)}
         />
         <label htmlFor="password">Пароль:</label>
         <input

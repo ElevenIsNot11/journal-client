@@ -8,7 +8,7 @@ const UserList = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await axios.get('/api/users');
+      const response = await axios.get('/user/');
       setUsers(response.data);
     };
 
@@ -17,7 +17,7 @@ const UserList = () => {
 
   const handleDeleteUser = async (userId) => {
     try {
-      await axios.delete(`/api/users/${userId}`);
+      await axios.delete(`/user/${userId}`);
       setUsers(users.filter((user) => user._id !== userId));
     } catch (error) {
       console.error('Ошибка удаления пользователя:', error);
@@ -30,8 +30,8 @@ const UserList = () => {
       <ul>
         {users.map((user) => (
           <li key={user._id}>
-            <Link to={`/users/${user._id}`}>{user.username}</Link>
-            {/* <button onClick={() => handleDeleteUser(user._id)}>Удалить</button> */}
+            <Link to={`http://localhost:3000/users/${user._id}`}>{user.username}</Link>
+            {}
           </li>
         ))}
       </ul>

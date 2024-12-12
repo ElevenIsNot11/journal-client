@@ -10,8 +10,12 @@ import Journal from './components/Journal';
 import AddGroup from './components/AddGroup';
 import AddAssessment from './components/AddAssessment';
 import UserList from './components/UserList'; 
+import axios from 'axios';
 
 import "./App.css"; // Подключаем CSS-стили
+import GroupList from "./components/GroupList";
+
+axios.defaults.port = 8080;
 
 const App = () => {
   return (
@@ -21,7 +25,7 @@ const App = () => {
           <nav>
             <ul>
               <li>
-                <NavLink to="/">Вход</NavLink>
+                <NavLink to="/login">Вход</NavLink>
               </li>
               <li>
                 <NavLink to="/register">Регистрация</NavLink>
@@ -30,7 +34,7 @@ const App = () => {
                 <NavLink to="/students">Список студентов</NavLink>
               </li>
               <li>
-                <NavLink to="/add">Добавить студента</NavLink>
+                <NavLink to="/students/add">Добавить студента</NavLink>
               </li>
               <li>
                 <NavLink to="/profile">Профиль</NavLink>
@@ -53,11 +57,12 @@ const App = () => {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/students" element={<StudentList />} />
-            <Route path="/add" element={<AddStudent />} />
-            <Route path="/students/:id" element={<StudentDetails />} />
+            <Route path="/students/add" element={<AddStudent />} />
+            <Route path="/student/:id" element={<StudentDetails />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/journal" element={<Journal />} />
             <Route path="/groups/add" element={<AddGroup />} /> 
+            <Route path="/groups" element={<GroupList/>} />
             <Route path="/assessments/add/:studentId" element={<AddAssessment />} /> 
             <Route path="/users" element={<UserList />} /> 
           </Routes>

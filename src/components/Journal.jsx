@@ -1,45 +1,29 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Journal = () => {
   const navigate = useNavigate();
   const [students, setStudents] = useState([]);
   const [groups, setGroups] = useState([]);
-  const [assessments, setAssessments] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
+  const [error, setError] = useState(null); // Add error state
+
 
   const fetchJournalData = useCallback(async () => {
     try {
-      const token = localStorage.getItem('token'); 
-
-      if (!token) {
-        navigate('/login');
-        return; 
-      }
-
-      const [studentResponse, groupResponse, assessmentResponse] = await Promise.all([
-        axios.get('/api/students', {
-          headers: {
-            Authorization: `Bearer ${token}` 
-          }
-        }),
-        axios.get('/api/groups', {
-          headers: {
-            Authorization: `Bearer ${token}` 
-          }
-        }),
-        axios.get('/api/assessments', {
-          headers: {
-            Authorization: `Bearer ${token}` 
-          }
-        })
-      ]); 
+      const [studentResponse, groupResponse] = await Promise.all([
+        axios.get('/student/'),
+        axios.get('/group/'),
+      ]);
 
       setStudents(studentResponse.data);
       setGroups(groupResponse.data);
-      setAssessments(assessmentResponse.data);
     } catch (error) {
       console.error('Ошибка загрузки данных:', error);
+      setError('Ошибка загрузки данных журнала.'); // Set error message
+    } finally {
+      setLoading(false); // Set loading to false after fetch completes
     }
   }, []);
 
@@ -47,14 +31,20 @@ const Journal = () => {
     fetchJournalData();
   }, [fetchJournalData]);
 
-  const getAssessmentsForStudent = (studentId) => {
-    return assessments.filter((assessment) => assessment.student._id === studentId);
-  };
-
   const getGroupForStudent = (studentId) => {
     const student = students.find((s) => s._id === studentId);
-    return groups.find((g) => g._id === student.group);
+    return student ? groups.find((g) => g._id === student?.group) : null; // Handle case where student is not found
   };
+
+  if (loading) {
+    return <div>Загрузка...</div>; // Show loading indicator
+  }
+
+  if (error) {
+    return <div>Ошибка: {error}</div>; // Show error message
+  }
+
+  console.log(students);
 
   return (
     <div>
@@ -71,13 +61,13 @@ const Journal = () => {
           {students.map((student) => (
             <tr key={student._id}>
               <td>{student.name}</td>
-              <td>{getGroupForStudent(student._id)?.name || 'Без группы'}</td>
+              <td>{getGroupForStudent(student.id)?.name || 'Без группы'}</td>
               <td>
-                {getAssessmentsForStudent(student._id).map((assessment) => (
-                  <div key={assessment._id}>
-                    {assessment.subject}: {assessment.grade}
+                {student.grades?.map((grade) => ( //Optional chaining here
+                  <div key={grade._id}>
+                    {grade.subject}: {grade.grade} {/* Access grade.grade */}
                   </div>
-                ))}
+                )) || 'Оценок нет'} {/* Handle case where student.grades is null or undefined */}
               </td>
             </tr>
           ))}

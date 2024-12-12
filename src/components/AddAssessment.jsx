@@ -12,7 +12,7 @@ const AddAssessment = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('/api/assessments', { student: studentId, subject, grade });
+      const response = await axios.post('http://localhost:8080/assessments', { student: studentId, subject, grade });
       console.log('Оценка добавлена:', response.data);
       navigate(`/students/${studentId}`); // Перенаправление на страницу студента
     } catch (error) {

@@ -10,9 +10,9 @@ const AddGroup = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('/api/groups', { name });
+      const response = await axios.post('/group/new', { name });
       console.log('Группа добавлена:', response.data);
-      navigate('/groups'); // Перенаправление на страницу групп
+      window.location.reload()
     } catch (error) {
       setErrorMessage(error.response.data.error);
     }
