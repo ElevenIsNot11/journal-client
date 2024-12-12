@@ -45,9 +45,6 @@ const App = () => {
               <li>
                 <NavLink to="/groups/add">Добавить группу</NavLink>
               </li>
-              <li>
-                <NavLink to="/users">Список пользователей</NavLink>
-              </li>
             </ul>
           </nav>
         </header> 
@@ -64,7 +61,6 @@ const App = () => {
             <Route path="/groups/add" element={<AddGroup />} /> 
             <Route path="/groups" element={<GroupList/>} />
             <Route path="/assessments/add/:studentId" element={<AddAssessment />} /> 
-            <Route path="/users" element={<UserList />} /> 
           </Routes>
         </main>
       </div>

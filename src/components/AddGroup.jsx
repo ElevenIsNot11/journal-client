@@ -9,28 +9,42 @@ const AddGroup = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setErrorMessage(null); // Clear previous error messages
+
+    if (!name) {
+      setErrorMessage('Введите название группы');
+      return;
+    }
+
     try {
       const response = await axios.post('/group/new', { name });
       console.log('Группа добавлена:', response.data);
-      window.location.reload()
+      navigate('/groups'); // Redirect to the groups list
     } catch (error) {
-      setErrorMessage(error.response.data.error);
+      setErrorMessage(error.response?.data?.error || 'Ошибка добавления группы');
     }
   };
 
   return (
-    <div>
+    <div className="add-group-container">
       <h1>Добавить группу</h1>
-      {errorMessage && <div className="error">{errorMessage}</div>}
+      {errorMessage && (
+        <div className="error-message">
+          <p>{errorMessage}</p>
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Название группы:</label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <button type="submit">Добавить</button>
+        <div className="form-group">
+          <label htmlFor="name">Название группы:</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" className="submit-button">Добавить</button>
       </form>
     </div>
   );

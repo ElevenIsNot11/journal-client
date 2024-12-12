@@ -151,3 +151,305 @@ main {
 .add-student-link:hover {
   color: #007bff; /* Blue on hover */
 }
+
+.student-details-container {
+  background-color: #282c34;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  width: 500px; /* Example width */
+  margin: 20px auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  padding: 8px;
+  border-bottom: 1px solid #555;
+  color: #eee;
+}
+
+th {
+  background-color: #444;
+  color: #fff;
+}
+
+button {
+  background-color: #555;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+button:hover {
+    background-color: #666;
+}
+
+.grades-section, .add-grade-section {
+  margin-bottom: 15px;
+}
+
+.custom-select {
+  background-color: #333;
+  color: #eee;
+  padding: 8px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%; /* Make it full width for better layout */
+  box-sizing: border-box; /* Include padding in total width */
+}
+
+.custom-select option {
+  background-color: #444; /* Dark background for options */
+}
+
+.add-button {
+  background-color: #255726;
+  border: 1px solid black;
+  color: white;
+}
+
+.back-button {
+  background-color: #255726; 
+  border: 1px solid black;
+  color: white;
+}
+
+.add-student-container {
+  background-color: #282c34;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  width: 350px; /* Adjusted for better display */
+  margin: 20px auto; /* Centered */
+  text-align: center; /* Center elements inside */
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input, select {
+  background-color: #333;
+  color: #eee;
+  padding: 8px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+.submit-button {
+  background-color: #255726;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.submit-button:hover {
+  opacity: 0.8;
+}
+
+.error-container {
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.error-message {
+    text-align: left;
+}
+
+
+.loading-container {
+  margin-top: 20px; /* Added margin */
+  color: #eee; /* Light gray text */
+}
+
+
+.add-button:hover, .back-button:hover {
+  opacity: 0.8; /* Subtle hover effect */
+}
+
+.add-group-container {
+  background-color: #282c34;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  width: 350px; /* Adjust width as needed */
+  margin: 20px auto; /* Center the container */
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  background-color: #333;
+  color: #eee;
+  padding: 8px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.submit-button {
+  background-color: #255726;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.submit-button:hover {
+  opacity: 0.8;
+}
+
+.error-message {
+  background-color: #e74c3c; /* Red error message background */
+  color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  text-align: left; /* Align error message text to the left */
+}
+
+.register-form-container {
+  background-color: #282c34;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  width: 350px; /* Adjust width as needed */
+  margin: 20px auto; /* Center the container */
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  background-color: #333;
+  color: #eee;
+  padding: 8px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.submit-button {
+  background-color: #255726;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.submit-button:hover {
+  opacity: 0.8;
+}
+
+
+.error-message {
+  background-color: #e74c3c; /* Red error message background */
+  color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  text-align: left; /* Align error message text to the left */
+}
+
+.login-form-container {
+  background-color: #282c34;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  width: 350px;
+  margin: 20px auto;
+  text-align: center; /* Centered */
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  background-color: #333;
+  color: #eee;
+  padding: 8px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.submit-button {
+  background-color: #255726;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.submit-button:hover {
+  opacity: 0.8;
+}
+
+.error-message {
+  background-color: #e74c3c;
+  color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  text-align: left;
+}

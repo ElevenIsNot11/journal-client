@@ -80,51 +80,62 @@ const StudentDetails = () => {
   }
 
   return (
-    <div>
-      <h1>Информация о студенте</h1>
-      <p>Имя: {student.name}</p>
-      <h2>Оценки:</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>№</th>
-            <th>Оценка</th>
-            <th>Предмет</th>
-            <th>Удалить</th>
-          </tr>
-        </thead>
-        <tbody>
-          {grades.map((grade, index) => (
-            <tr key={grade.id}>
-              <td>{index + 1}</td>
-              <td>{grade.value}</td>
-              <td>{grade.subject}</td>
-              <td><button onClick={() => handleDeleteGrade(grade.id)}>X</button></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <h2>Добавить оценку</h2>
-      <form onSubmit={handleAddGrade}> {/*Added onSubmit*/}
-        <label htmlFor="newGrade">Оценка:</label>
-        <select id="newGrade" value={newGrade} onChange={(e) => setNewGrade(e.target.value)}>
-          <option value="">Выберите оценку</option>
-          {[1, 2, 3, 4, 5].map((grade) => (
-            <option key={grade} value={grade}>{grade}</option>
-          ))}
-        </select>
-
-        <label htmlFor="newSubject">Предмет:</label>
-        <select id="newSubject" value={newSubject} onChange={(e) => setNewSubject(e.target.value)}>
-          <option value="">Выберите предмет</option>
-          {['математика', 'русский язык', 'литература', 'информатика'].map((subject) => (
-            <option key={subject} value={subject}>{subject}</option>
-          ))}
-        </select>
-        <button type="submit">Добавить</button>
-      </form>
-      <button onClick={() => navigate('/students')}>Назад к списку</button>
+    <div className="student-details-container">
+      <h1>Информация о студенте: {student.name}</h1>
+  
+      {/* Grades Section */}
+      <div className="grades-section">
+        <h2>Оценки:</h2>
+        {grades.length > 0 ? (
+          <table className="grades-table">
+            <tbody>
+              {grades.map((grade, index) => (
+                <tr key={grade.id} className="grade-row">
+                  <td>{index + 1}</td>
+                  <td>{grade.value}</td>
+                  <td>{grade.subject}</td>
+                  <td>
+                    <button className="delete-button" onClick={() => handleDeleteGrade(grade.id)}>
+                      X
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>Оценок нет.</p>
+        )}
+      </div>
+  
+      {/* Add Grade Section */}
+      <div className="add-grade-section">
+        <h2>Добавить оценку</h2>
+        <form onSubmit={handleAddGrade}>
+          <div className="form-group">
+            <label htmlFor="newGrade">Оценка:</label>
+            <select id="newGrade" className="custom-select" value={newGrade} onChange={(e) => setNewGrade(e.target.value)}>
+              <option value="">Выберите оценку</option>
+              {[1, 2, 3, 4, 5].map((grade) => (
+                <option key={grade} value={grade}>{grade}</option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="newSubject">Предмет:</label>
+            <select id="newSubject" className="custom-select" value={newSubject} onChange={(e) => setNewSubject(e.target.value)}>
+              <option value="">Выберите предмет</option>
+              {['математика', 'русский язык', 'литература', 'информатика'].map((subject) => (
+                <option key={subject} value={subject}>{subject}</option>
+              ))}
+            </select>
+          </div>
+          <button type="submit" className="add-button">Добавить</button>
+        </form>
+      </div>
+  
+      {/* Back Button */}
+      <button className="back-button" onClick={() => navigate('/students')}>Назад к списку</button>
     </div>
   );
 };

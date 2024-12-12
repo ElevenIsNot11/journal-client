@@ -7,11 +7,8 @@ const Profile = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      setUser(decodedToken); 
-    }
+    const id = localStorage.getItem('id');
+    console.log("id", id);
   }, []);
 
   if (!user) {
