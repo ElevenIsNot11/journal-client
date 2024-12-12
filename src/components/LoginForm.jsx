@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,10 +7,11 @@ const LoginForm = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setErrorMessage(null); // Clear any previous error messages
+    setErrorMessage(null);
 
     if (!login || !password) {
       setErrorMessage('Заполните все поля');
@@ -18,15 +19,31 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await axios.post('/login', { login, password });
-      console.log('Успешная авторизация:', response.data);
-      localStorage.setItem('token', response.data.token);
-      navigate('/journal'); // Redirect to the journal page
+      const authResponse = await axios.post('/login', { login, password });
+      const userId = authResponse.data.id; 
+      localStorage.setItem('userId', userId);
+
+      const studentResponse = await axios.post(`/student/user`, {id: userId}); // Fetch all students
+      console.log(studentResponse);
+      const student = studentResponse.data
+
+      if (student) {
+        localStorage.setItem('studentId', student._id);
+        navigate('/journal');
+      } else {
+        setErrorMessage('Студент не найден для данного пользователя.');
+      }
     } catch (error) {
-      console.error('Ошибка авторизации:', error); // Log the full error for debugging
+      console.error('Ошибка авторизации:', error);
       setErrorMessage(error.response?.data?.error || 'Ошибка авторизации');
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return <div className="loading-container">Загрузка данных...</div>;
+  }
 
   return (
     <div className="login-form-container">
@@ -57,9 +74,7 @@ const LoginForm = () => {
             required
           />
         </div>
-        <button type="submit" className="submit-button">
-          Войти
-        </button>
+        <button type="submit" className="submit-button">Войти</button>
       </form>
     </div>
   );
